@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>To Make a Dadaist Poem</title>
+
+    <meta
+      name="description"
+      content="An example of Tristan Tzara's To Make a Dadaist Poem."
+    />
+    <!-- styles -->
+    <style>
+      #poem {
+        padding: 10px;
+        border: 3px solid #000;
+      }
+      .controls {
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>To Make a Dadaist Poem</h1>
+    <ol>
+      <li>Take a newspaper.</li>
+      <li>Take a pair of scissors.</li>
+      <li>Choose an article as long as you are planning to make your poem.</li>
+      <li>Cut out the article.</li>
+      <li>
+        Then cut out each of the words that make up this article and put them in
+        a bag.
+      </li>
+      <li>Shake it gently.</li>
+      <li>
+        Then take out the scraps one after the other in the order in which they
+        left the bag.
+      </li>
+      <li>Copy conscientiously.</li>
+      <li>The poem will be like you.</li>
+      <li>
+        And here are you a writer, infinitely original and endowed with a
+        sensibility that is charming though beyond the understanding of the
+        vulgar.
+      </li>
+    </ol>
+    <cite>Tristan Tzara</cite>
+
+    <div class="controls">
+      <button id="new-poem">New poem</button>
+    </div>
+    <div id="poem"></div>
+    <!-- script -->
+    <script>
+      const article = `It was the trees, who, despite their protests to Aurelia’s presence, were the first to alert her of the arrival of someone new. The leaves began to clash together as the winds returned, pushing the mangled branches together. The entire forest began to groan. This newcomer was not a friend. Aurelia let herself down off her perch, landing in the now knee-deep water. She let her dress go, not caring if it got wet, as the ocean rapidly rose out from beneath the soil, begging her home. She would have to ignore it today. Her oldest confidant no longer had her best interest at heart, this she knew. Aurelia turned to face their guest. `;
+      const button = document.getElementById("new-poem");
+      function shuffleWords(list) {
+        return list
+          .map((value) => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ value }) => value);
+      }
+      function clearText() {
+        const poem = document.getElementById("poem");
+        poem.innerHTML = "";
+      }
+      function addLine(line) {
+        const poem = document.getElementById("poem");
+        const poemLine = document.createElement("div");
+        const lineText = document.createTextNode(line);
+        poemLine.appendChild(lineText);
+        poem.appendChild(poemLine);
+      }
+      function assemblePoem(articleWords) {
+        let lineText = "";
+        for (const [counter, word] of articleWords.entries()) {
+          if ((counter + 1) % 5 == 0) {
+            addLine(lineText);
+            lineText = "";
+          } else {
+            if (lineText === "") {
+              lineText = word;
+            } else {
+              lineText = lineText + " " + word;
+            }
+          }
+        }
+        if (lineText !== "") {
+          addLine(lineText);
+        }
+      }
+      function newPoem() {
+        const cutUpArticle = article.split(" ");
+        const shuffledWords = shuffleWords(cutUpArticle);
+        clearText();
+        assemblePoem(shuffledWords);
+      }
+      newPoem();
+      button.addEventListener("click", newPoem);
+    </script>
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div
+      class="glitchButton"
+      style="position: fixed; top: 20px; right: 20px"
+    ></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+  </body>
+</html>
