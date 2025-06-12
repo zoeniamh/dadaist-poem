@@ -1,3 +1,3 @@
 # To Make a Dadaist Poem
 
-A simple text reassembler based on Tristan Tzara's "To Make a Dadaist Poem"
+[Dadaist Poem Remix]([https://example.com](https://sweltering-loud-air.glitch.me/))
